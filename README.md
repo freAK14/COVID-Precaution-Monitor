@@ -9,7 +9,7 @@ The model helps to monitor people violating saftey norms over video footage from
 I've used YOLOv3 along with DBSCAN clustering for recognizing potential violations. A pre-trained Face Mask Classifier model (ResNet50) is used for detecting if the people are wearing face masks or not.
 Links to both (1)YoloV3.weights & (2)PreTrained ResNet50 Model can be found [here](https://github.com/freAK14/COVID-Precaution-Monitor/tree/main/models).
 
-## Requirements
+## Requirements:
 Making a virtual enviroment is strongly suggested. [Click here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to know more about virtual enviroments using Anaconda.
 
 Following python packages would be required for running the project:
@@ -22,8 +22,7 @@ Following python packages would be required for running the project:
   * face-detection
   * face-recognition
   
-## Usage
-
+## Usage:
 Run the following command in your terminal:
 ```
 python Covid_Precaution_Monitor.py
@@ -35,3 +34,13 @@ It would take some time to process the video(depending upon your system specific
 After completion of the progress bar, you would be able to see the ```result.mp4``` file as well as the various output images in the ```results``` folder.(You can comment the particular lines in the code if you don't wish to store these)
 
 **NOTE:** You have to move/remove the result video and files before processing another video, otherwise it will throw an error saying "directory/file already exists".
+
+## Example Output:
+
+![Output GIF](https://github.com/freAK14/COVID-Precaution-Monitor/blob/main/readmefiles/result.gif)
+
+
+## Contact Me:
+Feel free to reachout on my LinkedIn if you got any queries or need any help:
+
+<a href = "https://www.linkedin.com/in/akash-kothare/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
