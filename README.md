@@ -21,6 +21,7 @@ Following python packages would be required for running the project:
   * keras
   * face-detection
   * face-recognition
+  * tqdm
   
 ## Usage:
 Run the following command in your terminal:
