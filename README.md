@@ -30,11 +30,11 @@ python Covid_Precaution_Monitor.py
 ```
 After a bunch of TensorFlow warnings and stats, you will be able to see a progress bar processing the input video frame-by-frame.
 
-It would take some time to process the video(depending upon your system specifications).
+It would take some time to process the video(depending upon your system's specifications).
 
-After completion of the progress bar, you would be able to see the ```result.mp4``` file as well as the various output images in the ```results``` folder.(You can comment the particular lines in the code if you don't wish to store these)
+After completion of the progress bar, you would be able to see the ```result.mp4``` file as well as the various output images in the ```results``` folder.(I have commented those lines, but you can uncomment those in the code if you wish to store these files locally.)
 
-**NOTE:** You have to move/remove the result video and files before processing another video, otherwise it will throw an error saying "directory/file already exists".
+**NOTE:** You have to move/remove the result video and files(if applicable) before processing another video, otherwise it will throw an error saying "directory/file already exists".
 
 ## Example Output:
 
