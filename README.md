@@ -38,3 +38,9 @@ After completion of the progress bar, you would be able to see the ```result.mp4
 ## Example Output:
 
 ![Output GIF](https://github.com/freAK14/COVID-Precaution-Monitor/blob/main/readmefiles/result.gif)
+
+
+## Contact Me:
+Feel free to reachout on my LinkedIn if you got any queries or need any help:
+
+<a href = "https://www.linkedin.com/in/akash-kothare/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
