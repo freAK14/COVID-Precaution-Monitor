@@ -118,8 +118,9 @@ for frame in tqdm.tqdm(range(int(n_frames))):
             if label == 'person':
                 persons.append([x, y, w, h])
                 
+                #commenting to improve processing speed(uncomment if required)
                 #saving image of cropped person
-                cv2.imwrite("results/extracted_persons" + str(frame) + "_" + str(len(persons)) + ".jpg", img[y : y + h, x : x + w])
+                #cv2.imwrite("results/extracted_persons" + str(frame) + "_" + str(len(persons)) + ".jpg", img[y : y + h, x : x + w])
                 
                 #detecting face in the person
                 person_rgb = img[y : y + h, x: x + w,::-1] #crop & BGR to RGB
@@ -153,9 +154,10 @@ for frame in tqdm.tqdm(range(int(n_frames))):
                             masked_faces.append([x1, y1, x2, y2])
                         else:
                             unmasked_faces.append([x1, y1, x2, y2])
-                            
+                        
+                        #commenting to improve processing speed(uncomment if required)    
                         #saving image of the cropped face
-                        cv2.imwrite("results/extracted_faces" + str(frame) + "_" + str(len(persons)) + ".jpg", img[y1 : y2, x1: x2])
+                        #cv2.imwrite("results/extracted_faces" + str(frame) + "_" + str(len(persons)) + ".jpg", img[y1 : y2, x1: x2])
                         
                     except:
                         continue
@@ -229,8 +231,9 @@ for frame in tqdm.tqdm(range(int(n_frames))):
     #writing frame to the output file
     out_stream.write(img)
     
+    #commenting to improve processing speed(uncomment if required)
     #saving the frame in frame_no.jpg format
-    cv2.imwrite("results/frames/" + str(frame) + ".jpg", img)
+    #cv2.imwrite("results/frames/" + str(frame) + ".jpg", img)
         
     #enabling exit on pressing Q key
     if cv2.waitKey(25) & 0xFF == ord('q'):
