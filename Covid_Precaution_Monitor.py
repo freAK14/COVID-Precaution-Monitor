@@ -14,7 +14,7 @@ from keras.models import load_model
 from keras.applications.resnet50 import preprocess_input
 import tqdm
 
-#paths to the working enviroment
+#path to the input video
 FILE_PATH = "videos/sample_videos.mp4"
 
 #initializing a face detector
