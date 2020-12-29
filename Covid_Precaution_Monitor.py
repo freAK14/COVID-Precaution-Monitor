@@ -237,7 +237,7 @@ for frame in tqdm.tqdm(range(int(n_frames))):
         break
 
 #releasing streams
-out.stream.release()
+out_stream.release()
 cap.release()
 cv2.destroyAllWindows()
 
