@@ -1,5 +1,5 @@
 # COVID-Precaution-Monitor
-This repository contains all the project files developed by of our team - RAYS, during HackNagpur 2020.
+This repository contains all the project files developed by our team - RAYS, during HackNagpur 2020.
 
 ## Purpose:
 The purpose for this project is to enable a user to monitor the index of COVID precautionary measures being followed or not.
