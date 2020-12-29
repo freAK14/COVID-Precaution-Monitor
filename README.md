@@ -39,6 +39,9 @@ After completion of the progress bar, you would be able to see the ```result.mp4
 
 ![Output GIF](https://github.com/freAK14/COVID-Precaution-Monitor/blob/main/readmefiles/result.gif)
 
+## Potential Improvements:
+* We can improve the processing speed by not saving each frame , detected persons and detected faces locally.
+
 
 ## Contact Me:
 Feel free to reachout on my LinkedIn if you got any queries or need any help:
