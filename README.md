@@ -2,7 +2,7 @@
 This repository contains all the project files developed by of our team - RAYS, during HackNagpur 2020.
 
 ## Purpose:
-The purpose for this project is to enable a user to monitor the index of COVID safety measures being followed or not.
+The purpose for this project is to enable a user to monitor the index of COVID precautionary measures being followed or not.
 Our model is a combination of Social-Distancing-Monitor and Fask-Mask-Monitor.
 The model helps to monitor people violating saftey norms over video footage from CCTV cameras.
 
