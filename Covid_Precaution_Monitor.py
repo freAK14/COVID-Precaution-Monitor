@@ -16,7 +16,7 @@ import tqdm
 
 #paths to the working enviroment
 BASE_PATH = ""
-FILE_PATH = "videos/sample1.mp4"
+FILE_PATH = "videos/sample_videos.mp4"
 
 #initializing a face detector
 detector = face_detection.build_detector("DSFDDetector", confidence_threshold = 0.5, nms_iou_threshold = 0.3)
@@ -167,77 +167,75 @@ for frame in tqdm.tqdm(range(int(n_frames))):
     for p in range(len(persons)):
         person_coordinates.append((persons[p][0] + int(persons[p][2] / 2), persons[p][1] + int(persons[p][3] / 2)))
         
-        clustering = DBSCAN(eps = threshold_distance, min_samples = 2).fit(person_coordinates)
-        isSafe = clustering.labels_
-        print(isSafe.head())
+    clustering = DBSCAN(eps = threshold_distance, min_samples = 2).fit(person_coordinates)
+    isSafe = clustering.labels_
         
-        #count
-        person_count = len(persons)
-        masked_face_count = len(masked_faces)
-        unmasked_face_count = len(unmasked_faces)
-        safe_count = np.sum((isSafe == -1)*1)
-        unsafe_count = person_count - safe_count
+    #count
+    person_count = len(persons)
+    masked_face_count = len(masked_faces)
+    unmasked_face_count = len(unmasked_faces)
+    safe_count = np.sum((isSafe == -1)*1)
+    unsafe_count = person_count - safe_count
         
-        #showing clusters using red lines
-        arg_sorted = np.argsort(isSafe)
+    #showing clusters using red lines
+    arg_sorted = np.argsort(isSafe)
         
-        '''
-        for i in range(1, person_count):
-            if isSafe[arg_sorted[i]] != -1 and isSafe[arg_sorted[i]] == isSafe[arg_sorted[i-1]]:
-                cv2.line(img, person_coordinates[arg_sorted[i]], person_coordinates[arg_sorted[i-1]], (0, 0, 255), 2)
-        '''
+
+    for i in range(1, person_count):
+        if isSafe[arg_sorted[i]] != -1 and isSafe[arg_sorted[i]] == isSafe[arg_sorted[i-1]]:
+            cv2.line(img, person_coordinates[arg_sorted[i]], person_coordinates[arg_sorted[i-1]], (0, 0, 255), 2)
         
-        #placing bounding boxes on people in the frame
-        for p in range(person_count):
-            a, b, c, d = persons[p]
-            
-            #green if safe, red if unsafe
-            if isSafe[p] == -1:
-                cv2.rectangle(img, (a, b), (a + c, b + d), (0, 255, 0), 2)
-            else:
-                cv2.rectangle(img, (a, b), (a + c, b + d), (0, 0, 255), 2)
+    #placing bounding boxes on people in the frame
+    for p in range(person_count):
+        a, b, c, d = persons[p]
+        
+        #green if safe, red if unsafe
+        if isSafe[p] == -1:
+            cv2.rectangle(img, (a, b), (a + c, b + d), (0, 255, 0), 2)
+        else:
+            cv2.rectangle(img, (a, b), (a + c, b + d), (0, 0, 255), 2)
                 
-        #placing bounding boxes on faces
-        for f in range(masked_face_count):
-            a, b, c, d = masked_faces[f]
-            #green because safe
-            cv2.rectangle(img, (a, b), (c, d), (0, 255, 0), 2)
+    #placing bounding boxes on faces
+    for f in range(masked_face_count):
+        a, b, c, d = masked_faces[f]
+        #green because safe
+        cv2.rectangle(img, (a, b), (c, d), (0, 255, 0), 2)
             
-        for f in range(unmasked_face_count):
-            a, b, c, d = unmasked_faces[f]
-            #red because unsafe
-            cv2.rectangle(img, (a, b), (c, d), (0, 0, 255), 2)
+    for f in range(unmasked_face_count):
+        a, b, c, d = unmasked_faces[f]
+        #red because unsafe
+        cv2.rectangle(img, (a, b), (c, d), (0, 0, 255), 2)
             
-        #displaying the monitoring status in a black box at the top
-        cv2.rectangle(img, (0, 0), (width, 50), (0, 0, 0), -1)
-        cv2.rectangle(img, (1, 1), (width - 1, 50), (255, 255, 255), 2)
+    #displaying the monitoring status in a black box at the top
+    cv2.rectangle(img, (0, 0), (width, 50), (0, 0, 0), -1)
+    cv2.rectangle(img, (1, 1), (width - 1, 50), (255, 255, 255), 2)
+    
+    xpos = 15
+    
+    string = "Total People = " + str(person_count)
+    cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+    xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
+    
+    string = " ( " + str(safe_count) + " Safe "
+    cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
+    
+    string = str(unsafe_count) + " Unsafe )"
+    cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
+    
+    string = " ( " + str(masked_face_count) + " Masked " + str(unmasked_face_count) + " Unmasked " + str(person_count - masked_face_count - unmasked_face_count) + " Unknown )"
+    cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+    
+    #writing frame to the output file
+    out_stream.write(img)
+    
+    #saving the frame in frame_no.jpg format
+    cv2.imwrite("results/frames/" + str(frame) + ".jpg", img)
         
-        xpos = 15
-        
-        string = "Total People = " + str(person_count)
-        cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-        xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
-        
-        string = " ( " + str(safe_count) + " Safe "
-        cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
-        
-        string = str(unsafe_count) + " Unsafe )"
-        cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        xpos += cv2.getTextSize(string, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0]
-        
-        string = " ( " + str(masked_face_count) + " Masked " + str(unmasked_face_count) + " Unmasked " + str(person_count - masked_face_count - unmasked_face_count) + " Unknown )"
-        cv2.putText(img, string, (xpos, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
-        
-        #writing frame to the output file
-        out_stream.write(img)
-        
-        #saving the frame in frame_no.jpg format
-        cv2.imwrite("results/frames/" + str(frame) + ".jpg", img)
-        
-        #enabling exit on pressing Q key
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
+    #enabling exit on pressing Q key
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        break
 
 #releasing streams
 out.stream.release()
